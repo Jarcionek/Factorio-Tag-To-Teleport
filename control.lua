@@ -1,3 +1,5 @@
+local ignore_tag_destroyed_event_text = "A_MAGIC_STRING_THAT_USER_IS_UNLIKELY_TO_TYPE_THAT_WILL_MAKE_THE_SCRIPT_IGNORE_TAG_REMOVED_EVENT"
+
 script.on_configuration_changed(function()
     global.teleports = global.teleports or {}
 end)
@@ -11,6 +13,7 @@ script.on_event(defines.events.on_chart_tag_added, function(event)
 
     if event.tag.text == "" then
         teleport_player_to_tag(player, event.tag)
+        event.tag.text = ignore_tag_destroyed_event_text
         event.tag.destroy()
     else
         create_fixed_teleport_location(player, event.tag)
@@ -37,6 +40,10 @@ script.on_event(defines.events.on_chart_tag_removed, function(event)
         return
     end
 
+    if event.tag.text == ignore_tag_destroyed_event_text then
+        return
+    end
+
     local teleport_number = teleport_number_from_tag(event.tag)
     destroy_fixed_teleport_location(teleport_number)
 end)
@@ -56,12 +63,14 @@ function create_fixed_teleport_location(player, tag)
 
     if teleport_number == nil then
         player.print("Invalid name! First character must be a digit!")
+        tag.text = ignore_tag_destroyed_event_text
         tag.destroy()
         do return end
     end
 
     if global.teleports[teleport_number] then
         player.print("Teleport " .. teleport_number .. " already exists!")
+        tag.text = ignore_tag_destroyed_event_text
         tag.destroy()
     else
         game.print("Teleport '" .. tag.text .. "' created")
