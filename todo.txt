@@ -1,0 +1,31 @@
+!!! REMOVE THIS FILE FROM THE BRANCH BEFORE MERGING TO MASTER AND LEAVE IT ON "workinprogress" BRANCH !!!
+
+add gui with teleport buttons, for deletion, rather than playing with confirmation windows etc., it might just open a map at that location instead
+- or maybe even no map move - just teleport there and open a map, which will open at player location
+
+once above is done, remove the default key mappings?
+
+adding gui would allow to remove the constraint of first char being a digit, but what to do with keyboard shortcuts then?
+
+
+
+move changelog to readme?
+
+
+
+when changing existing tag without a name and giving it a teleport tag, I was expecting to be teleported there and tag to disappear, but instead I got an error "invalid teleport location name"
+what should the behaviour be?
+
+
+travelled distance print is not useful, especially when travelling to saved location, make it configurable?
+
+
+
+shortcut to teleport to current position in the Zoom to World view?
+it's not possible to get a position of that so I would have to attach on_entity_selected listener and TP to last known position instead
+or create a capsule item and ask the user to click there....
+
+
+
+refactoring - split the control.lua into multiple files
+
